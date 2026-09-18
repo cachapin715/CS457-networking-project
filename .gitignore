@@ -216,3 +216,22 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+# CS457 Custom Project Additions
+# IDE & Editor Settings
+.vscode/
+
+# Operating System Metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Network Packet Captures & Trace Logs
+*.pcap
+*.pcapng
+*.cap
