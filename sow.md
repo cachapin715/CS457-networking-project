@@ -39,27 +39,29 @@
 
 ### 2.1 Message Transport & Serialization Format
 - **Transport Protocol:** TCP
-- **Serialization Format:** [JSON / Fixed-Header Binary / Delimited Text]
-- **Framing Mechanism:** [e.g., Newline-delimited (`\n`) JSON payloads OR 4-byte big-endian length prefix]
+- **Serialization Format:** JSON
+- **Framing Mechanism:** Newline-delimited (`\n`) JSON payloads
 
 ### 2.2 Message Schema Definitions
 
 #### Message Types:
 1. `CONNECT` (Client -> Server): Request to join the game room.
 2. `LOBBY_WAIT` (Server -> Client): Notification that server is waiting for Player 2.
-3. `GAME_START` (Server -> Clients): Game initiated, assigns roles (e.g. Player X vs Player O).
-4. `MOVE` (Client -> Server): Player action (e.g., cell coordinates or answer choice).
-5. `STATE_UPDATE` (Server -> Clients): Broadcast current game board / state and active player turn.
-6. `GAME_OVER` (Server -> Clients): Victory / Draw notification with final scores.
-7. `ERROR` (Server -> Client): Invalid move or malformed packet error.
+3. `GAME_START` (Server -> Clients): Game initiated, assigns roles (Player 1 vs Player 2).
+4. `SETUP` (Clients -> Server) Players select coordinates to place their 5 ships on the board.
+5. `ATTACK` (Clients -> Server): Active player selects a coordinate to strike on enemy player's board.
+6. `STATE_UPDATE` (Server -> Clients): Broadcast current game board / state and active player turn.
+7. `GAME_OVER` (Server -> Clients): Victory / Loss notification based on which player is the winner / loser
+8. `DISCONNECT` (Server -> Clients): Server notice that one of the players has quit / dropped connection.
+9. `ERROR` (Server -> Client): Invalid move or malformed packet error.
 
 #### Example JSON Protocol Schema:
 ```json
 {
-  "msg_type": "MOVE",
+  "msg_type": "ATTACK",
   "player_id": "Player_1",
   "payload": {
-    "row": 0,
+    "row": 2,
     "col": 2
   },
   "timestamp": 1727000000
