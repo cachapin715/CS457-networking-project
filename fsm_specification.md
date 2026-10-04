@@ -1,4 +1,4 @@
-### 2.3 Game State Machine (FSM) Design
+### Game State Machine (FSM) Design
 - **State Transitions:** 
 
 ```mermaid
