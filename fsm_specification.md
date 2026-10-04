@@ -1,5 +1,4 @@
 ### Game State Machine (FSM) Design
-- **State Transitions:** 
 
 ```mermaid
 stateDiagram-v2
