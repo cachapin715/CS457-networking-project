@@ -1,6 +1,6 @@
 # CS457 Project Concurrency Design
 
-## 1 Server Concurrency Model Selection
+## 1. Server Concurrency Model Selection
 
 For the handling concurrency on the server with multiple clients I will be using Multi-Threading. Specifically the threading module in python which provides a high level interface for creating and managing threads concurrently. The Battleship game will have two players connected during a given session, meaning two threads will need to be created and managed by the server for the two client sockets.
 
