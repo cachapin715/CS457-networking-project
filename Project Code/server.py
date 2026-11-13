@@ -514,7 +514,15 @@ def main() -> None:
                         format="%(asctime)s [%(threadName)s] %(message)s")
 
     server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    if sys.platform == "win32":
+        # On Windows, SO_REUSEADDR lets us bind a port another program is
+        # already using (and clients may reach that program instead).
+        # Exclusive mode makes bind() fail loudly in that case.
+        server_sock.setsockopt(
+            socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+    else:
+        # Linux/macOS: allow quick restarts while old sockets are in TIME_WAIT.
+        server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     try:
         server_sock.bind(("0.0.0.0", args.port))
     except OSError as err:
